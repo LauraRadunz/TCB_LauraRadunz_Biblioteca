@@ -8,8 +8,8 @@ public class Livro implements Serializable{
     private String nome;
     private int exemplares;
     private int emprestados;
-    private int ano;
     private String autor;
+    private int ano;
 
     private static int contador = 2001;
 
