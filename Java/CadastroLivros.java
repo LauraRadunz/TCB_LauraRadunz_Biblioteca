@@ -24,6 +24,14 @@ public class CadastroLivros {
         salvarLivros();
     }
 
+    public CadastroLivros(boolean carregar) {
+        if (carregar) {
+            carregarLivros();
+        } else {
+            livros = new ArrayList<>();
+        }
+    }
+
     public Livro buscarLivros(int codigo) {
         for (Livro livro : livros) {
             if (livro.getCodigo() == codigo) {
@@ -33,8 +41,13 @@ public class CadastroLivros {
         return null; // Se não existe um livro cadastrado com esse código retorna nulo
     }
 
+    public void adicionarSemSalvar(Livro x) {
+        livros.add(x);
+    }
+
     public CadastroLivros buscarLivrosPorTitulo(String palavra) {
-        CadastroLivros encontrados = new CadastroLivros(); // lista nova, vazia
+        // cria um CadastroLivros vazio (não carrega do arquivo)
+        CadastroLivros encontrados = new CadastroLivros(false); // <<-- aqui está a diferença
 
         if (palavra == null) {
             return encontrados;
@@ -50,7 +63,7 @@ public class CadastroLivros {
             String tituloNormalizado = normalize(titulo).toLowerCase();
 
             if (tituloNormalizado.contains(consulta)) {
-                encontrados.cadastrarLivros(livro); // adiciona só os que batem
+                encontrados.adicionarSemSalvar(livro); // adiciona só os que batem
             }
         }
         return encontrados;
@@ -62,7 +75,6 @@ public class CadastroLivros {
         String n = Normalizer.normalize(s, Normalizer.Form.NFD);
         return n.replaceAll("\\p{M}", ""); // remove marcas de acento
     }
-
 
     public void listarLivros(String tipo) {
         StringBuilder mensagem = new StringBuilder(tipo+":\n");
