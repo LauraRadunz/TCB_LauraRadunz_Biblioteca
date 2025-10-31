@@ -4,8 +4,8 @@ import javax.swing.JOptionPane;
 import java.io.Serializable;
 
 public class Livro implements Serializable{
-    private String nome;
     private int codigo;
+    private String nome;
     private int exemplares;
     private int emprestados;
     private int ano;
